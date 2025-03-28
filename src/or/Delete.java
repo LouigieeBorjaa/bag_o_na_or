@@ -100,10 +100,7 @@ public class Delete extends javax.swing.JFrame {
     }//GEN-LAST:event_COMPIRMMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Delete dl = new Delete dl();
-
-            
-            this.dispose();
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
