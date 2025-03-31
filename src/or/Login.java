@@ -150,7 +150,7 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
     }
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
+} 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked

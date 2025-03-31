@@ -1,5 +1,7 @@
 package or;
 
+import config.session;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -37,7 +39,6 @@ public class Customer extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -51,9 +52,22 @@ public class Customer extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        adname = new javax.swing.JTextField();
+        uid = new javax.swing.JTextField();
+        type = new javax.swing.JTextField();
+        adminname = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        contact = new javax.swing.JTextField();
+        address = new javax.swing.JTextField();
+        lname = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,11 +77,11 @@ public class Customer extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("WELCOME ");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 149, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 149, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel2.setText("To Customer Dashboard");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -135,11 +149,6 @@ public class Customer extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 50));
-
-        jButton3.setBackground(new java.awt.Color(255, 204, 204));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setText("Change Password");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, -1, -1));
 
         jPanel6.setBackground(new java.awt.Color(255, 204, 204));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -225,23 +234,87 @@ public class Customer extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(255, 204, 204));
         jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton7.setText("Change Password");
-        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, -1, -1));
+        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, -1, 20));
 
-        jButton8.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton8.setText("Track Reservation");
-        jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 220, -1));
+        jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 400, 140, -1));
 
-        jButton9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton9.setText("Add Reservation");
-        jPanel6.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
+        jPanel6.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
-        jButton6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton6.setText("Edit Reservation");
-        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, -1, -1));
+        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, -1, -1));
 
-        jButton5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton5.setText("Add Reservation");
-        jPanel6.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
+        adname.setText("adname");
+        adname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adnameActionPerformed(evt);
+            }
+        });
+        jPanel6.add(adname, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 270, 30));
+
+        uid.setText("uid");
+        uid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uidActionPerformed(evt);
+            }
+        });
+        jPanel6.add(uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 270, 30));
+
+        type.setText("type");
+        type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeActionPerformed(evt);
+            }
+        });
+        jPanel6.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, 270, 30));
+
+        adminname.setText("adminname");
+        adminname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminnameActionPerformed(evt);
+            }
+        });
+        jPanel6.add(adminname, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 270, 30));
+
+        email.setText("email");
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
+        jPanel6.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 270, 30));
+
+        contact.setText("contact");
+        contact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactActionPerformed(evt);
+            }
+        });
+        jPanel6.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 270, 30));
+
+        address.setText("address");
+        address.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addressActionPerformed(evt);
+            }
+        });
+        jPanel6.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 270, 30));
+
+        lname.setText("lname");
+        lname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lnameActionPerformed(evt);
+            }
+        });
+        jPanel6.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 270, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\janin\\Pictures\\Screenshots\\Screenshot 2025-03-31 211025.png")); // NOI18N
+        jLabel7.setText("jLabel7");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 340, 230));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -271,8 +344,55 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void adnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adnameActionPerformed
+
+    private void uidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_uidActionPerformed
+
+    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        session ses = session.getInstance();
+        uid.setText(""+ses.getUid());
+        adminname.setText("Hello"+ses.getFname());
+        adname.setText(""+ses.getFname());
+        lname.setText(""+ses.getLname());
+        email.setText(""+ses.getEmail());
+        contact.setText(""+ses.getContact());
+        address.setText(""+ses.getAddress());
+        type.setText(""+ses.getType());
+    }//GEN-LAST:event_formWindowActivated
+
+    private void adminnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminnameActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void contactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactActionPerformed
+
+    private void addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addressActionPerformed
+
+    private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lnameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,10 +430,13 @@ public class Customer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField address;
+    private javax.swing.JTextField adminname;
+    private javax.swing.JTextField adname;
+    private javax.swing.JTextField contact;
+    private javax.swing.JTextField email;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -324,6 +447,7 @@ public class Customer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -334,5 +458,8 @@ public class Customer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JTextField lname;
+    private javax.swing.JTextField type;
+    private javax.swing.JTextField uid;
     // End of variables declaration//GEN-END:variables
 }
