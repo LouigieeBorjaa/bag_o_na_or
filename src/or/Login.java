@@ -6,6 +6,7 @@
 package or;
 
 import config.config;
+import static config.passwordHasher.hashPassword;
 import config.session;
 import java.sql.Connection;
 import java.sql.DriverManager;
