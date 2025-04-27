@@ -117,6 +117,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         Password = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,7 +143,7 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 313, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Don't have an account? Register Here");
@@ -163,6 +164,14 @@ public class Login extends javax.swing.JFrame {
 
         Password.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jPanel1.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 162, 32));
+
+        jLabel5.setText("Forgot password.");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,6 +249,17 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+     {   
+    forgotpass fp = new forgotpass();
+    fp.setVisible(true);    
+    this.dispose(); // close login page
+                          
+         
+     }                         
+
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -282,6 +302,7 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
