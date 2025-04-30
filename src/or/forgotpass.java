@@ -94,78 +94,74 @@ public class forgotpass extends javax.swing.JFrame {
     public String[] getDetails(String username) {
         config con = new config();
         try {
-            String query = "SELECT email FROM binsbites WHERE email = ?";
+            String query = "SELECT email FROM users WHERE LOWER(email) = LOWER(?)";
             PreparedStatement pstmt = con.getConnection().prepareStatement(query);
             pstmt.setString(1, username.trim());
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
                 return new String[]{
-                    resultSet.getString("email"),                                  
-                };
+                    resultSet.getString("email"),};
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return null;
     }
-    
-    
+
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
 
-        boolean isValid = true;
+        {
+    String emailText = email.getText().trim(); // Assuming JTextField is named "email"
 
-        if (email.getText().isEmpty()) {
-            this.email.setBorder(BorderFactory.createLineBorder(Color.RED));
-            isValid = false;
+    if (emailText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter your email.");
+        return;
+    }
 
-        } else {
-            email.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-            
-            String eM = email.getText().trim();
-            
-            String [] deets = getDetails(eM);
-            
-            String eMail = deets[0];
-            
-            session sess = session.getInstance();
-            
-            sess.setEmail(eMail);
-            
-            newpass np = new newpass();
-            np.setVisible(true);
-            this.dispose();
-            
+    if (!emailText.endsWith("@gmail.com")) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid Gmail address.");
+        return;
+    }
 
-        }
+    if (checkIfEmailExists(emailText)) {
+        // ✅ Save email in session
+        session.getInstance().setEmail(emailText);
+
+        // ✅ Open next screen (e.g., reset password frame)
+        new newpass().setVisible(true);
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Email not found in database.");
+    }
+}
 
 
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private boolean emailExists(String email) {
+    
+    
+   public boolean checkIfEmailExists(String email) {
+    String url = "jdbc:mysql://localhost:3306/binsbites"; // database name
+    String dbUser = "root"; // your DB username
+    String dbPass = "";     // your DB password (if any)
 
-        config con = new config();
+    try {
+        Connection conn = DriverManager.getConnection(url, dbUser, dbPass);
+        String query = "SELECT email FROM customer WHERE email = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, email.toLowerCase());
+        ResultSet rs = pstmt.executeQuery();
 
-        try {
-            String query = "SELECT * FROM user WHERE u_email = ?";
-            PreparedStatement pstmt = con.getConnection().prepareStatement(query);
-            pstmt.setString(1, email.trim());
-            ResultSet resultSet = pstmt.executeQuery();
-
-            if (resultSet.next()) {
-
-                return true;
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("" + ex);
-
-        }
-
+        boolean exists = rs.next(); // true if a row was returned
+        conn.close();
+        return exists;
+    } catch (SQLException e) {
+        e.printStackTrace();
         return false;
-
     }
-
+}
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 

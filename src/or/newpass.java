@@ -5,6 +5,13 @@
  */
 package or;
 
+import config.config;
+import config.session;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -121,39 +128,76 @@ public class newpass extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       
-      
 
-  String currentPass = new String(currentpass.getPassword());
-String newPass = new String(newpass.getPassword());
-String confirmPass = new String(confirmpass.getPassword());
+      {
+    String newPass = new String(newpass.getPassword());
+    String confirmPass = new String(confirmpass.getPassword());
 
-if (currentPass.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please fill out all fields.");
-    return;
+    if (newPass.isEmpty() || confirmPass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill out both fields.");
+        return;
+    }
+
+    if (!newPass.equals(confirmPass)) {
+        JOptionPane.showMessageDialog(this, "Passwords do not match.");
+        return;
+    }
+
+    // Get logged-in email from session
+    String userEmail = session.getInstance().getEmail();
+
+    // Call method to update password
+    if (updatePassword(userEmail, newPass)) {
+        JOptionPane.showMessageDialog(this, "Password updated successfully!");
+        new Login().setVisible(true); // return to login
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to update password.");
+    }
 }
-
-// TODO: Validate the current password (you can add your method here)
-if (!validateCurrentPassword(currentPass)) {
-    JOptionPane.showMessageDialog(this, "Current password is incorrect.");
-    return;
-}
-
-if (!newPass.equals(confirmPass)) {
-    JOptionPane.showMessageDialog(this, "New passwords do not match.");
-    return;
-}
-
-// TODO: Save the new password (e.g., to file or database)
-JOptionPane.showMessageDialog(this, "Password successfully updated!");
-
-
-        Login lg = new Login();
-
-            lg.setVisible(true);
-            this.dispose();
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
+    public boolean updatePassword(String email, String newPassword) {
+    String url = "jdbc:mysql://localhost:3306/binsbites";
+    String username = "root"; // replace if needed
+    String dbPassword = "";   // replace with your DB password
+
+    try {
+        Connection conn = DriverManager.getConnection(url, username, dbPassword);
+        String query = "UPDATE binsbites SET password = ? WHERE email = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, newPassword);
+        pstmt.setString(2, email);
+
+        int rowsAffected = pstmt.executeUpdate();
+        conn.close();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+    
+    
+    public String getPasswordByEmail(String email) {
+    config con = new config();
+    try {
+        String query = "SELECT password FROM binsbites WHERE email = ?";
+        PreparedStatement pstmt = con.getConnection().prepareStatement(query);
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getString("password");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return null;
+}
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
