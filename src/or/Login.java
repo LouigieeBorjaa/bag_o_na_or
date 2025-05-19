@@ -28,83 +28,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
     }
 
-  public static boolean login(String username, String password) {
-    config cf = new config();
-    String query = "SELECT * FROM customer WHERE cs_user = ? AND cs_status = 'active'";
 
-    try (Connection conn = cf.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-        pstmt.setString(1, username);
-        ResultSet resultSet = pstmt.executeQuery();
-
-        if (resultSet.next()) {
-            String storedPassword = resultSet.getString("cs_pass");
-            String userType = resultSet.getString("cs_type");
-            String hashedInputPassword = hashPassword(password);
-
-            // If stored password is plaintext, hash and update it
-            if (!storedPassword.matches("[a-fA-F0-9]{64}")) {
-                System.out.println("Rehashing old plaintext password...");
-                String newHashedPassword = hashPassword(storedPassword);
-
-                try (PreparedStatement updateStmt = conn.prepareStatement(
-                        "UPDATE customer SET cs_pass = ? WHERE cs_user = ?")) {
-                    updateStmt.setString(1, newHashedPassword);
-                    updateStmt.setString(2, username);
-                    updateStmt.executeUpdate();
-                }
-
-                storedPassword = newHashedPassword;
-            }
-
-            // Validate password
-            if (hashedInputPassword.equals(storedPassword)) {
-                JOptionPane.showMessageDialog(null, "Login Successful!");
-
-                // ✅ Store the logged-in username in dbconnect for later use
-                config.loggedInUsername = username;  // Store the username after successful login
-
-                // ✅ Load user details into Session class
-                session ses = session.getInstance();
-                ses.setUid(resultSet.getString("id"));
-                ses.setFname(resultSet.getString("cs_fname"));
-                ses.setLname(resultSet.getString("cs_lname"));
-                ses.setEmail(resultSet.getString("cs_email"));
-                ses.setContact(resultSet.getString("cs_contact"));
-                ses.setAddress(resultSet.getString("cs_address"));
-                ses.setUser(username);
-                ses.setType(userType);
-                ses.setStatus(resultSet.getString("cs_status"));
-                                
-                
-                // ✅ Redirect user based on their type
-                if ("customer".equalsIgnoreCase(userType)) {
-                    new Customer().setVisible(true);
-                } else if ("manager".equalsIgnoreCase(userType)) {
-                    new Receptionist().setVisible(true);
-//                } else if ("admin".equalsIgnoreCase(userType)) {
-//                    new Dashboard().setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Unknown user type!", "Error", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-             
-              
-                return true;
-            } else {
-                JOptionPane.showMessageDialog(null, "Wrong Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "User not found or inactive!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-}
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -205,10 +130,13 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
 
     if (rs.next()) {
         String storedPassword = rs.getString("cpass");
-        String userType = rs.getString("type"); 
+        String userType = rs.getString("type");
 
         if (Password.getText().equals(storedPassword)) {
             JOptionPane.showMessageDialog(null, "Login Successful!");
+
+            // ✅ Set the logged-in user
+            config.loggedInUsername = username.getText();
 
             // Redirect based on user type
             if ("customer".equalsIgnoreCase(userType)) {
@@ -219,10 +147,6 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
                 Receptionist rc = new Receptionist();
                 this.dispose();
                 rc.setVisible(true);
-            } else if ("admin".equalsIgnoreCase(userType)) {
-                Admin ad = new Admin();
-                this.dispose();
-                ad.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Unknown user type!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -234,7 +158,7 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
     }
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-} 
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked

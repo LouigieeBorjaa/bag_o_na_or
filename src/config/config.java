@@ -14,7 +14,7 @@ public class config {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
-    public static String loggedInUsername;
+      public static String loggedInUsername; 
     // constructor to connect to our database
     public config() {
         try {

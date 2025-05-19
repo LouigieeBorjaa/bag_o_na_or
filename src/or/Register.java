@@ -107,7 +107,7 @@ public class Register extends javax.swing.JFrame {
                 COMPIRMActionPerformed(evt);
             }
         });
-        jPanel1.add(COMPIRM, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 120, 40));
+        jPanel1.add(COMPIRM, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 120, 40));
 
         cNumber.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cNumber.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -320,7 +320,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_COMPIRMActionPerformed
 
     private void fNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fNameActionPerformed
-
+    
 
     }//GEN-LAST:event_fNameActionPerformed
 
