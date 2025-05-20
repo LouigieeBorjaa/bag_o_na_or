@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import reservation.addreservation;
+import reservation.editreservation;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -339,6 +340,11 @@ private void setDefaultProfilePicture() {
 
         jButton6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton6.setText("Edit Reservation");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, -1, -1));
 
         adname.setText("adname");
@@ -583,6 +589,14 @@ if (result == JFileChooser.APPROVE_OPTION) {
             adre.setVisible(true);
             this.dispose();  
     }//GEN-LAST:event_jButton9MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+   editreservation edre = new editreservation();
+
+            edre.setVisible(true);
+            this.dispose();  
+                     
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
