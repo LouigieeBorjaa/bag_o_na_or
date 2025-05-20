@@ -52,7 +52,7 @@ public class Admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        table = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -125,7 +125,7 @@ public class Admin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 130, 20));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 20));
 
         jButton3.setText("Edit Customer");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -136,8 +136,15 @@ public class Admin extends javax.swing.JFrame {
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 110, 20));
 
         jButton4.setText("Delete Customer");
-        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 120));
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
+
+        table.setText("Add Table");
+        table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableActionPerformed(evt);
+            }
+        });
+        jPanel3.add(table, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, 20));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 580, 210));
 
@@ -173,6 +180,14 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableActionPerformed
+        seating st = new seating();
+
+            this.dispose();
+            st.setVisible(true);
+           
+    }//GEN-LAST:event_tableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,12 +233,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton table;
     // End of variables declaration//GEN-END:variables
 
 }

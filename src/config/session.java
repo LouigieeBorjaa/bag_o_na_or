@@ -9,7 +9,6 @@ public class session {
     private String lname;
     private String email;
     private String contact;
-    private String address;
     private String user;
     private String type;
     private String status;
@@ -69,13 +68,6 @@ public class session {
         this.contact = contact;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getUser() {
         return user;

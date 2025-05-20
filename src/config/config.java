@@ -13,9 +13,10 @@ public class config {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/binsbites";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
+    public static String loggedInUsername; // keeps email
+    public static int loggedInUserId;   
 
-      public static String loggedInUsername; 
-    // constructor to connect to our database
+   
     public config() {
         try {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/binsbites", "root", "");
@@ -48,13 +49,20 @@ public class config {
         return rst;
     }
 
-    public static Connection getConnection() throws SQLException {
+     public static Connection getConnection() {
+        Connection conn = null;
         try {
-            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        } catch (SQLException ex) {
-            System.err.println("Database Connection Error: " + ex.getMessage()); // Or use a logger
-            throw ex; // Re-throw the exception to be handled by the calling code
+            // Replace with your actual database URL, username, and password
+            String url = "jdbc:mysql://localhost:3306/binsbites";
+            String user = "root";
+            String password = "";
+
+            conn = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return conn;
     }
+
 
 }

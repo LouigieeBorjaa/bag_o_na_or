@@ -27,8 +27,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -116,7 +114,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          
-    String url = "jdbc:mysql://localhost:3306/binsbites";
+String url = "jdbc:mysql://localhost:3306/binsbites";
 String user = "root";
 String password = "";
 
@@ -143,10 +141,10 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
                 Customer cs = new Customer();
                 this.dispose();
                 cs.setVisible(true);
-            } else if ("Receptionist".equalsIgnoreCase(userType)) {
-                Receptionist rc = new Receptionist();
+            } else if ("Admin".equalsIgnoreCase(userType)) {
+                Admin am = new Admin();
                 this.dispose();
-                rc.setVisible(true);
+                am.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Unknown user type!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -159,6 +157,32 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
 } catch (SQLException e) {
     JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
+
+String sql = "SELECT c_id FROM customer WHERE email = ?";
+
+config conf = new config(); // instance to access getConnection()
+
+try (Connection conn = conf.getConnection(); 
+     PreparedStatement pst = conn.prepareStatement(sql)) {
+
+    String use = username.getText(); // from your JTextField
+    pst.setString(1, use);            // ✅ use setString even with JTextField
+
+    try (ResultSet rs = pst.executeQuery()) {
+        if (rs.next()) {
+            config.loggedInUserId = rs.getInt("c_id");
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No user found with that email.");
+        }
+    }
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+}
+
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
