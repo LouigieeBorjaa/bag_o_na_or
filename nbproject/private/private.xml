@@ -3,16 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/forgotpass.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/Admin.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/config/config.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/Delete.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/Customer.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/add.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/Login.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/newpass.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/config/session.java</file>
-            <file>file:/C:/Users/janin/Desktop/bag_o_na_or/src/or/Register.java</file>
+            <file>file:/C:/Users/PC10/Desktop/bag_o_na_or/src/or/edit.java</file>
+            <file>file:/C:/Users/PC10/Desktop/bag_o_na_or/src/reservation/editreservation.java</file>
+            <file>file:/C:/Users/PC10/Desktop/bag_o_na_or/src/reservation/editResForm.java</file>
+            <file>file:/C:/Users/PC10/Desktop/bag_o_na_or/src/or/Customer.java</file>
+            <file>file:/C:/Users/PC10/Desktop/bag_o_na_or/src/database/customer.sql</file>
         </group>
     </open-files>
 </project-private>

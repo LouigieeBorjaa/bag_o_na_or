@@ -277,9 +277,9 @@ public class add extends javax.swing.JFrame {
                 + "VALUES ('" + fName.getText() + "','" + lName.getText() + "','" + eMail.getText() + "',"
                 + "'" + cNumber.getText() + "','" + Pass.getText() + "','" + type.getSelectedItem() + "', 'Pending')");
 
-            Login lg = new Login();
+            Admin ad = new Admin();
 
-            lg.setVisible(true);
+            ad.setVisible(true);
             this.dispose();
 
         }
@@ -421,7 +421,7 @@ public class add extends javax.swing.JFrame {
         config con = new config();
 
         try {
-            String query = "SELECT * FROM user WHERE u_email = ?";
+            String query = "SELECT * FROM customer WHERE email = ?";
             PreparedStatement pstmt = con.getConnection().prepareStatement(query);
             pstmt.setString(1, email.trim());
             ResultSet resultSet = pstmt.executeQuery();
