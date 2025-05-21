@@ -6,10 +6,12 @@
 package or;
 
 import config.config;
+import config.session;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
@@ -276,6 +278,13 @@ public class add extends javax.swing.JFrame {
             con.insertData("INSERT INTO customer (fname, lname, email, c_number, cpass, type, status)"
                 + "VALUES ('" + fName.getText() + "','" + lName.getText() + "','" + eMail.getText() + "',"
                 + "'" + cNumber.getText() + "','" + Pass.getText() + "','" + type.getSelectedItem() + "', 'Pending')");
+            
+            session sess = session.getInstance();
+            
+            LocalDate actionDate = LocalDate.now();
+            
+            
+            con.insertData("INSERT INTO logs (u_id, action, action_date) VALUES ('"+sess.getUid()+"', 'Added an account', '"+actionDate+"')");
 
             Admin ad = new Admin();
 

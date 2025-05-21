@@ -13,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -133,8 +135,27 @@ try (Connection conn = DriverManager.getConnection(url, user, password);
         if (Password.getText().equals(storedPassword)) {
             JOptionPane.showMessageDialog(null, "Login Successful!");
 
-            // ✅ Set the logged-in user
-            config.loggedInUsername = username.getText();
+            
+            String[] userDetails = getUserDetails(username.getText());
+
+            String userID = userDetails[0];
+            String username = user;
+            String firstName = userDetails[1];
+            String lastName = userDetails[2];
+            String email = userDetails[3];
+            String contactNumber = userDetails[4];  
+            
+            session sess = session.getInstance();
+
+            sess.setUid(userID);
+            sess.setUser(username);
+            sess.setFname(firstName);
+            sess.setLname(lastName);
+            sess.setEmail(email);
+            sess.setContact(contactNumber);
+            
+            
+            
 
             // Redirect based on user type
             if ("customer".equalsIgnoreCase(userType)) {
@@ -181,7 +202,7 @@ try (Connection conn = conf.getConnection();
     JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
 }
 
-
+   
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -208,6 +229,32 @@ try (Connection conn = conf.getConnection();
 
     }//GEN-LAST:event_jLabel5MouseClicked
 
+    public String[] getUserDetails(String username) {
+        config con = new config();
+        try {
+            String query = "SELECT c_id, fname, lname, email, c_number, type, status FROM customer WHERE email = ?";
+            PreparedStatement pstmt = con.getConnection().prepareStatement(query);
+            pstmt.setString(1, username.trim());
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                return new String[]{
+                    resultSet.getString("c_id").trim(),
+                    resultSet.getString("fname").trim(),
+                    resultSet.getString("lname").trim(),
+                    resultSet.getString("email").trim(),
+                    resultSet.getString("c_number").trim(),
+                    resultSet.getString("type").trim(),
+                    resultSet.getString("status").trim()
+                };
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
