@@ -89,6 +89,7 @@ public class forgotpass extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public String[] getDetails(String username) {
