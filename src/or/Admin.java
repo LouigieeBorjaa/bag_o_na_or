@@ -6,6 +6,8 @@
 package or;
 
 import config.config;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -53,6 +55,7 @@ public class Admin extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         table = new javax.swing.JButton();
+        report = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,7 +143,7 @@ public class Admin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 110, 20));
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 120, 20));
 
         jButton4.setText("Delete Customer");
         jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
@@ -152,6 +155,19 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         jPanel3.add(table, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, 20));
+
+        report.setText("REPORTS");
+        report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportMouseClicked(evt);
+            }
+        });
+        report.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportActionPerformed(evt);
+            }
+        });
+        jPanel3.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 120, 20));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 580, 210));
 
@@ -207,6 +223,81 @@ public class Admin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportActionPerformed
+       
+        report rs = new report();
+        this.dispose();
+        rs.setVisible(true);
+    }//GEN-LAST:event_reportActionPerformed
+
+    
+    private String selectedCustomerEmail = null;
+    private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
+                                             
+ // Class-level variable to store selected customer's email
+                                  
+    int selectedRow = ctable.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(null, "Please select a customer from the table.");
+        return;
+    }
+
+    // Get email from selected row (assuming index 2)
+    selectedCustomerEmail = ctable.getValueAt(selectedRow, 2).toString().trim();
+
+    // Call jButton1MouseClicked to generate report
+    jButton1MouseClicked(evt);
+}
+
+
+// jButton1 click handler - generate and show report
+private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {                                      
+    if (selectedCustomerEmail == null || selectedCustomerEmail.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No customer selected for report.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    config con = new config();
+
+    try {
+        Connection conn = con.getConnection();
+        String sql = "SELECT fname, lname, email, c_number, type, status FROM customer WHERE email = ?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, selectedCustomerEmail);
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            String fname = rs.getString("fname");
+            String lname = rs.getString("lname");
+            String email = rs.getString("email");
+            String contact = rs.getString("c_number");
+            String type = rs.getString("type");
+            String status = rs.getString("status");
+
+            StringBuilder report = new StringBuilder();
+            report.append("📋 Customer Report\n\n")
+                  .append("👤 Name: ").append(fname).append(" ").append(lname).append("\n")
+                  .append("📧 Email: ").append(email).append("\n")
+                  .append("📱 Contact: ").append(contact).append("\n")
+                  .append("🆔 Type: ").append(type).append("\n")
+                  .append("✅ Status: ").append(status).append("\n");
+
+            JOptionPane.showMessageDialog(null, report.toString(), "Customer Report", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No data found for the selected customer.");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "SQL Error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
+
+    }//GEN-LAST:event_reportMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +347,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton report;
     private javax.swing.JButton table;
     // End of variables declaration//GEN-END:variables
 
